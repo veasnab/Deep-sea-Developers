@@ -7,7 +7,7 @@ For our TCSS 445: Database and System Design project, our goal is to build a dat
 
 ### Group Project Links:
 - [Phase I: Brainstorming](https://docs.google.com/document/d/1bM5Q9nt1TZ4JKHIELyNvBuoM3OrfnpBE_7ziaDTEZ2s/edit)
-- [Phase I: Project Proposal Document](https://docs.google.com/document/d/1bM5Q9nt1TZ4JKHIELyNvBuoM3OrfnpBE_7ziaDTEZ2s/edit)
+- [Phase I: Project Proposal Document](https://docs.google.com/document/d/1WN1IpAML7lscrXqaVyPaYKuykkLhALQA/edit?pli=1#heading=h.gjdgxs)
 - [Phase II: Group Folder](https://drive.google.com/drive/folders/1SBl6mujUn6A0Z5QOIPxeZQBPaRKZ7Keb)
 
 ### Members: 
