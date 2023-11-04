@@ -38,7 +38,7 @@ CREATE TABLE ORGANIZATION
     contact_number      VARCHAR(20),
     contact_email       VARCHAR(50),
     organization_id     INT             PRIMARY KEY NOT NULL,
-    FOREIGN KEY (address_id) REFERENCES ADDRESSES(address_id) ON DELETE SET DEFAULT
+    FOREIGN KEY (address_id) REFERENCES ADDRESSES(address_id) ON DELETE SET NULL
 );
 -- MANUFACTURER: stores data about different manufacturers, including their name, contact information, and the address they are associated with.
 CREATE TABLE MANUFACTURER 
@@ -48,7 +48,7 @@ CREATE TABLE MANUFACTURER
     contact_number      VARCHAR(20),
     contact_email       VARCHAR(50),
     manufacturer_id     INT             PRIMARY KEY NOT NULL,
-    FOREIGN KEY (address_id) REFERENCES ADDRESSES(address_id) ON DELETE SET DEFAULT
+    FOREIGN KEY (address_id) REFERENCES ADDRESSES(address_id) ON DELETE SET NULL
 );
 -- CTD_GPS: stores data about GPS coordinates and location information for CTD (Conductivity, Temperature, and Depth) measurements.
 CREATE TABLE CTD_GPS 
@@ -58,18 +58,18 @@ CREATE TABLE CTD_GPS
     longitude           DECIMAL(9,6)    CHECK (longitude >= -180 AND longitude <= 180),
     location_name       VARCHAR(100),
     gps_id              INT             PRIMARY KEY NOT NULL,
-    FOREIGN KEY (address_id) REFERENCES ADDRESSES(address_id) ON DELETE SET DEFAULT
+    FOREIGN KEY (address_id) REFERENCES ADDRESSES(address_id) ON DELETE SET NULL
 );
 -- CTD_DATA: stores various measurements related to oceanographic data, such as temperature, transmissivity, salinity, oxygen saturation, fluorescence, density, and pressure.
 CREATE TABLE CTD_DATA 
 (
-    temperature         DECIMAL(10,2),
-    transmissivity      DECIMAL(10,2),
-    salinity            DECIMAL(10,2),
-    oxygen_saturation   DECIMAL(10,2),
-    florescence         DECIMAL(10,2),
-    density             DECIMAL(10,2),
-    pressure            DECIMAL(10,2), 
+    temperature         DECIMAL(10,2)   CHECK (temperature >= -50.00 AND temperature <= 100.00),
+    transmissivity      DECIMAL(10,2)   CHECK (transmissivity >= 0.00 AND transmissivity <= 100.00),
+    salinity            DECIMAL(10,2)   CHECK (salinity >= 0.00 AND salinity <= 50.00),
+    oxygen_saturation   DECIMAL(10,2)   CHECK (oxygen_saturation >= 0.00 AND oxygen_saturation <= 100.00),
+    florescence         DECIMAL(10,2)   CHECK (florescence >= 0.00 AND florescence <= 10.00),
+    density             DECIMAL(10,2)   CHECK (density >= 1000.00 AND density <= 1100.00),
+    pressure            DECIMAL(10,2)   CHECK (pressure >= 0.00 AND pressure <= 2000.00), 
     data_id             INT             PRIMARY KEY NOT NULL
 );
 -- CTD_OPERATOR: stores information about operators involved in CTD operations. It also includes a foreign key reference to the organization they belong to.
@@ -100,13 +100,14 @@ CREATE TABLE CTD_LOG
     equipment_id    INT                         NOT NULL,
     operator_id     INT                         NOT NULL,
     data_id         INT                         NOT NULL,
-    date_and_time   TIMESTAMP WITH TIME ZONE    NOT NULL,
+    date_and_time   TIMESTAMP                   NOT NULL,
     log_id          INT                         PRIMARY KEY NOT NULL,
     FOREIGN KEY (gps_id) REFERENCES CTD_GPS(gps_id) ON DELETE CASCADE,
     FOREIGN KEY (equipment_id) REFERENCES CTD_EQUIPMENT(equipment_id) ON UPDATE CASCADE,
     FOREIGN KEY (operator_id) REFERENCES CTD_OPERATOR(operator_id) ON UPDATE CASCADE,
     FOREIGN KEY (data_id) REFERENCES CTD_DATA(data_id) ON DELETE CASCADE
 );
+
 -- ***************************
 -- Part A: End
 -- ***************************
@@ -115,14 +116,124 @@ CREATE TABLE CTD_LOG
 -- ***************************
 -- Part B: Start
 -- ***************************
--- Sample data for Table_A
--- Summary: store data about A
--- INSERT INTO Table_A VALUES (...);
--- INSERT INTO Table_A VALUES (...);
--- Sample data for Table_B
--- Summary: store data about B
--- INSERT INTO Table_B VALUES (...);
--- INSERT INTO Table_B VALUES (...);
+-- Sample data for ADDRESSES
+-- Summary:
+
+--      INSERT data for ORGANIZATION ADDRESS
+INSERT INTO ADDRESSES VALUES ('United States', 'Washington, D.C', '1401 Constitution Avenue NW, Room 5128', 1001);
+INSERT INTO ADDRESSES VALUES ('United States', 'Massachusetts', '266 Woods Hole Road, Woods Hole', 1002);
+INSERT INTO ADDRESSES VALUES ('United States', 'California', '9500 Gilman Drive, La Jolla', 1003);
+INSERT INTO ADDRESSES VALUES ('United Kingdom', 'Southampton', 'SO14 3ZH', 1004);
+INSERT INTO ADDRESSES VALUES ('Australia', 'QLD', '1526 Cape Cleveland Road, Cape Cleveland', 1005);
+INSERT INTO ADDRESSES VALUES ('China', 'Qingdao', '7 Nanhai Road', 1006);
+INSERT INTO ADDRESSES VALUES ('United Kingdom', 'Devon', 'Citadel Hill Plymouth', 1007);
+INSERT INTO ADDRESSES VALUES ('Norway', 'Bergen', 'Nordnesgaten 50', 1008);
+INSERT INTO ADDRESSES VALUES ('Japan', 'Kanagawa', '2-15 Natsushimachō, Yokosuka', 1009);
+INSERT INTO ADDRESSES VALUES ('United Kingdom', 'Southampton', 'European Way', 1010);
+--      INSERT data for MANUFACTURER ADDRESS
+INSERT INTO ADDRESSES VALUES ('United States', 'California', '123 Main St', 1011);
+INSERT INTO ADDRESSES VALUES ('Australia', 'Sydney', '555 Beach Rd', 1012);
+INSERT INTO ADDRESSES VALUES ('China', 'Beijing', '456 Great Wall St', 1013);
+INSERT INTO ADDRESSES VALUES ('United Kingdom', 'London', '10 Downing Street', 1014);
+INSERT INTO ADDRESSES VALUES ('Norway', 'Oslo', '123 Fjord Lane', 1015);
+--      INSERT data for CTD_GPS ADDRESS
+INSERT INTO ADDRESSES VALUES ('Japan', 'Hiroshima', NULL, 1016);
+INSERT INTO ADDRESSES VALUES ('Norway', 'Oslo', NULL, 1017);
+INSERT INTO ADDRESSES VALUES ('United States', 'California', NULL, 1018);
+INSERT INTO ADDRESSES VALUES ('China', 'Beijing', 'Fangshan District', 1019);
+INSERT INTO ADDRESSES VALUES ('Australia', 'Sydney', NULL, 1020);
+
+-- Sample data for ORGANIZATION
+-- Summary:
+INSERT INTO ORGANIZATION VALUES (1001, 'www.noaa.gov', '301-713-1208', 'outreach@noaa.gov', 2001);
+INSERT INTO ORGANIZATION VALUES (1002, 'www.whoi.edu', '508-289-2252', 'information@whoi.edu', 2002);
+INSERT INTO ORGANIZATION VALUES (1003, 'scripps.ucsd.edu', '858-246-5511', 'scrippsnews@ucsd.edu', 2003);
+INSERT INTO ORGANIZATION VALUES (1004, 'www.bodc.ac.uk', '44-0-782-512-0946', 'enquiries@bodc.ac.uk', 2004);
+INSERT INTO ORGANIZATION VALUES (1005, 'www.aims.gov.au', '61-7-4753-4444', 'reception@aims.gov.au', 2005);
+INSERT INTO ORGANIZATION VALUES (1006, 'english.qdio.cas.cn', '86-532-82898611', 'iocas@qdio.ac.cn', 2006);
+INSERT INTO ORGANIZATION VALUES (1007, 'www.mba.ac.uk', '44-0-1752-426493', 'info@mba.ac.uk', 2007);
+INSERT INTO ORGANIZATION VALUES (1008, 'www.hi.no/en', '47-55-23-85-00', 'post@hi.no', 2008);
+INSERT INTO ORGANIZATION VALUES (1009, 'www.jamstec.go.jp/e/', '81-46-866-3811', 'library@jamstec.go.jp', 2009);
+INSERT INTO ORGANIZATION VALUES (1010, 'noc.ac.uk', '44-0-23-8059-6666', 'giving@noc.ac.uk', 2010);
+
+-- Sample data for MANUFACTURER
+-- Summary: 
+INSERT INTO MANUFACTURER VALUES (1011, 'ABC Manufacturing', '123-456-7890', 'abc@example.com', 3001);
+INSERT INTO MANUFACTURER VALUES (NULL, 'XYZ Corporation', '987-654-3210', 'xyz@example.com', 3002);
+INSERT INTO MANUFACTURER VALUES (1012, 'Ocean Tech', '555-123-4567', 'ocean@example.com', 3003);
+INSERT INTO MANUFACTURER VALUES (NULL, 'Marine Instruments', '888-999-0000', 'marine@example.com', 3004);
+INSERT INTO MANUFACTURER VALUES (1013, 'Deep Sea Technologies', '111-222-3333', 'deepsea@example.com', 3005);
+INSERT INTO MANUFACTURER VALUES (NULL, 'Aqua Research', '444-555-6666', 'aqua@example.com', 3006);
+INSERT INTO MANUFACTURER VALUES (1014, 'Sea Explorers', '777-888-9999', 'sea@example.com', 3007);
+INSERT INTO MANUFACTURER VALUES (NULL, 'TechMar', '222-333-4444', 'techmar@example.com', 3008);
+INSERT INTO MANUFACTURER VALUES (1015, 'Oceanic Solutions', '666-777-8888', 'oceanic@example.com', 3009);
+INSERT INTO MANUFACTURER VALUES (NULL, 'Maritime Innovations', '999-000-1111', 'maritime@example.com', 3010);
+
+-- Sample data for CTD_GPS
+-- Summary: 
+INSERT INTO CTD_GPS VALUES (1016, 34.343, 132.422, 'Minami Ward', 4001);
+INSERT INTO CTD_GPS VALUES (1017, 59.9025, 10.7242, 'Kavringen naturreservat', 4002);
+INSERT INTO CTD_GPS VALUES (1018, 33.945, -118.4719, 'Santa Monica Bay', 4003);
+INSERT INTO CTD_GPS VALUES (1018, 33.9514, -118.5184, 'Santa Monica Bay', 4004);
+INSERT INTO CTD_GPS VALUES (1018, 33.9432, -118.5439, 'Santa Monica Bay', 4005);
+INSERT INTO CTD_GPS VALUES (1019, 39.789, 116.2324, 'Beijing River, Fangshan', 4006);
+INSERT INTO CTD_GPS VALUES (1020, -33.8601, 151.2417, 'Sydney Harbor', 4007);
+INSERT INTO CTD_GPS VALUES (1020, -33.8567, 151.2363, 'Sydney Harbor', 4008);
+INSERT INTO CTD_GPS VALUES (1020, -33.8626, 151.2357, 'Sydney Harbor', 4009);
+INSERT INTO CTD_GPS VALUES (1020, -33.8627, 151.2448, 'Sydney Harbor', 4010);
+
+-- Sample data for CTD_DATA
+-- Summary: 
+INSERT INTO CTD_DATA VALUES (15.20, 85.40, 35.60, 90.20, 5.80, 1020.40, 150.20, 5001);
+INSERT INTO CTD_DATA VALUES (17.80, 80.20, 33.70, 92.50, 6.40, 1019.80, 160.70, 5002);
+INSERT INTO CTD_DATA VALUES (18.50, 75.60, 34.20, 91.80, 5.50, 1021.00, 155.30, 5003);
+INSERT INTO CTD_DATA VALUES (14.30, 88.00, 36.20, 89.70, 6.80, 1018.50, 140.80, 5004);
+INSERT INTO CTD_DATA VALUES (16.70, 82.10, 34.90, 91.20, 5.90, 1020.10, 148.60, 5005);
+INSERT INTO CTD_DATA VALUES (15.90, 85.00, 35.10, 90.60, 6.20, 1019.60, 157.20, 5006);
+INSERT INTO CTD_DATA VALUES (16.80, 83.40, 34.50, 92.10, 5.30, 1021.30, 145.70, 5007);
+INSERT INTO CTD_DATA VALUES (17.50, 79.80, 33.90, 91.60, 6.60, 1019.00, 152.40, 5008);
+INSERT INTO CTD_DATA VALUES (18.20, 76.20, 35.80, 90.90, 5.40, 1020.80, 158.90, 5009);
+INSERT INTO CTD_DATA VALUES (14.70, 87.50, 36.40, 89.50, 6.40, 1018.20, 143.90, 5010);
+
+-- Sample data for CTD_OPERATOR
+-- Summary:
+INSERT INTO CTD_OPERATOR VALUES (2001, 'John', 'A.', 'Smith', 'john.smith@noaa.gov', 6001);
+INSERT INTO CTD_OPERATOR VALUES (2002, 'Emily', NULL, 'Johnson', 'emily.johnson@whoi.edu', 6002);
+INSERT INTO CTD_OPERATOR VALUES (2001, 'Michael', 'B.', 'Davis', 'michael.davis@noaa.gov', 6003);
+INSERT INTO CTD_OPERATOR VALUES (2003, 'Sophia', NULL, 'Lee', 'sophia.lee@ucsd.edu', 6004);
+INSERT INTO CTD_OPERATOR VALUES (2002, 'William', 'C.', 'Wilson', 'william.wilson@whoi.edu', 6005);
+INSERT INTO CTD_OPERATOR VALUES (2004, 'Olivia', NULL, 'White', 'olivia.white@bodc.ac.u', 6006);
+INSERT INTO CTD_OPERATOR VALUES (2003, 'James', 'D.', 'Brown', 'james.brown@ucsd.edu', 6007);
+INSERT INTO CTD_OPERATOR VALUES (2001, 'Emma', NULL, 'Martinez', 'emma.martinez@noaa.gov', 6008);
+INSERT INTO CTD_OPERATOR VALUES (2002, 'Alexander', 'E.', 'Lopez', 'alexander.lopez@whoi.edu', 6009);
+INSERT INTO CTD_OPERATOR VALUES (2004, 'Mia', NULL, 'Garcia', 'mia.garcia@bodc.ac.u', 6010);
+
+-- Sample data for CTD_EQUIPMENT
+-- Summary:
+INSERT INTO CTD_EQUIPMENT VALUES (3001, 2001, 'CTD Sensor 1', 7001);
+INSERT INTO CTD_EQUIPMENT VALUES (3002, 2002, 'CTD Sensor 2', 7002);
+INSERT INTO CTD_EQUIPMENT VALUES (3003, 2001, 'CTD Sensor 3', 7003);
+INSERT INTO CTD_EQUIPMENT VALUES (3004, 2003, 'CTD Sensor 4', 7004);
+INSERT INTO CTD_EQUIPMENT VALUES (3005, 2002, 'CTD Sensor 5', 7005);
+INSERT INTO CTD_EQUIPMENT VALUES (3006, 2004, 'CTD Sensor 6', 7006);
+INSERT INTO CTD_EQUIPMENT VALUES (3007, 2003, 'CTD Sensor 7', 7007);
+INSERT INTO CTD_EQUIPMENT VALUES (3008, 2003, 'CTD Sensor 8', 7008);
+INSERT INTO CTD_EQUIPMENT VALUES (3009, 2001, 'CTD Sensor 9', 7009);
+INSERT INTO CTD_EQUIPMENT VALUES (3010, 2004, 'CTD Sensor 10', 7010);
+
+-- Sample data for CTD_LOG
+-- Summary:
+INSERT INTO CTD_LOG VALUES (4001, 7001, 6008, 5001, '2023-11-04 10:30:00+00', 8001);
+INSERT INTO CTD_LOG VALUES (4002, 7002, 6002, 5002, '2023-11-04 11:15:00+00', 8002);
+INSERT INTO CTD_LOG VALUES (4003, 7004, 6007, 5003, '2023-11-04 12:45:00+00', 8003);
+INSERT INTO CTD_LOG VALUES (4004, 7005, 6002, 5004, '2023-11-04 13:20:00+00', 8004);
+INSERT INTO CTD_LOG VALUES (4005, 7006, 6010, 5005, '2023-11-04 14:05:00+00', 8005);
+INSERT INTO CTD_LOG VALUES (4006, 7004, 6007, 5006, '2023-11-04 15:30:00+00', 8006);
+INSERT INTO CTD_LOG VALUES (4007, 7007, 6007, 5007, '2023-11-04 16:45:00+00', 8007);
+INSERT INTO CTD_LOG VALUES (4008, 7008, 6007, 5008, '2023-11-04 17:10:00+00', 8008);
+INSERT INTO CTD_LOG VALUES (4009, 7009, 6008, 5009, '2023-11-04 18:25:00+00', 8009);
+INSERT INTO CTD_LOG VALUES (4010, 7010, 6010, 5010, '2023-11-04 19:40:00+00', 8010);
+
 -- ***************************
 -- Part B: End
 -- ***************************
@@ -150,4 +261,3 @@ CREATE TABLE CTD_LOG
 
 
 -- End of Script (Nov 2, 2023)
-delete */
