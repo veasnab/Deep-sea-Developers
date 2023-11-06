@@ -13,7 +13,7 @@
         6. Click on the "Import" tab at the top of the page.
         7. Click on the "Choose File" button and locate your script.sql file on your computer.
         8. Make sure the "SQL" format is selected.
-        9. Click the "Go" button to import the script.sql file into the selected database.
+        9. Click the "Import" button to import the script.sql file into the selected database.
     Please note that the import process may take some time depending on the size of your script.sql file. 
 ********************************
 */
@@ -28,28 +28,34 @@ CREATE TABLE ADDRESSES
     country_or_region   VARCHAR(50)     NOT NULL,
     state_or_province   VARCHAR(50)     NOT NULL,
     street_address      VARCHAR(100)    DEFAULT NULL,
-    address_id          INT             PRIMARY KEY NOT NULL
+    address_id          INT             PRIMARY KEY NOT NULL,
+    UNIQUE (country_or_region, state_or_province, street_address)
 );
+
 -- ORGANIZATION: stores information about different organizations, including their address, website, contact number, and contact email.
 CREATE TABLE ORGANIZATION 
 (
     address_id          INT             DEFAULT NULL,
     website             VARCHAR(100),
-    contact_number      VARCHAR(20),
-    contact_email       VARCHAR(50),
+    contact_number      VARCHAR(20)     UNIQUE,
+    contact_email       VARCHAR(50)     UNIQUE,
     organization_id     INT             PRIMARY KEY NOT NULL,
+    UNIQUE(address_id, website, contact_number, contact_email),
     FOREIGN KEY (address_id) REFERENCES ADDRESSES(address_id) ON DELETE SET NULL
 );
+
 -- MANUFACTURER: stores data about different manufacturers, including their name, contact information, and the address they are associated with.
 CREATE TABLE MANUFACTURER 
 (
     address_id          INT             DEFAULT NULL,
     manufacturer_name   VARCHAR(100)    NOT NULL,
-    contact_number      VARCHAR(20),
-    contact_email       VARCHAR(50),
+    contact_number      VARCHAR(20)     UNIQUE,
+    contact_email       VARCHAR(50)     UNIQUE,
     manufacturer_id     INT             PRIMARY KEY NOT NULL,
+    UNIQUE (address_id, manufacturer_name, contact_number, contact_email),
     FOREIGN KEY (address_id) REFERENCES ADDRESSES(address_id) ON DELETE SET NULL
 );
+
 -- CTD_GPS: stores data about GPS coordinates and location information for CTD (Conductivity, Temperature, and Depth) measurements.
 CREATE TABLE CTD_GPS 
 (
@@ -58,8 +64,10 @@ CREATE TABLE CTD_GPS
     longitude           DECIMAL(9,6)    CHECK (longitude >= -180 AND longitude <= 180),
     location_name       VARCHAR(100),
     gps_id              INT             PRIMARY KEY NOT NULL,
+    UNIQUE (latitude, longitude),
     FOREIGN KEY (address_id) REFERENCES ADDRESSES(address_id) ON DELETE SET NULL
 );
+
 -- CTD_DATA: stores various measurements related to oceanographic data, such as temperature, transmissivity, salinity, oxygen saturation, fluorescence, density, and pressure.
 CREATE TABLE CTD_DATA 
 (
@@ -72,6 +80,7 @@ CREATE TABLE CTD_DATA
     pressure            DECIMAL(10,2)   CHECK (pressure >= 0.00 AND pressure <= 2000.00), 
     data_id             INT             PRIMARY KEY NOT NULL
 );
+
 -- CTD_OPERATOR: stores information about operators involved in CTD operations. It also includes a foreign key reference to the organization they belong to.
 CREATE TABLE CTD_OPERATOR 
 (
@@ -79,20 +88,23 @@ CREATE TABLE CTD_OPERATOR
     first_name          VARCHAR(50),
     middle_name         VARCHAR(50)     NULL,
     last_name           VARCHAR(50),
-    operator_email      VARCHAR(100),
+    operator_email      VARCHAR(100)    UNIQUE,
     operator_id         INT             PRIMARY KEY NOT NULL,
+    UNIQUE (first_name , middle_name, last_name, operator_email),
     FOREIGN KEY (organization_id) REFERENCES ORGANIZATION(organization_id) ON UPDATE CASCADE
 );
+
 -- CTD_EQUIPMENT: stores information about equipment used in CTD operations.
 CREATE TABLE CTD_EQUIPMENT 
 (
     manufacturer_id             INT             NOT NULL,
     registered_organization     INT             NOT NULL,
-    equipment_name              VARCHAR(100),
+    equipment_name              VARCHAR(100)    UNIQUE,
     equipment_id                INT             PRIMARY KEY NOT NULL,
     FOREIGN KEY (manufacturer_id) REFERENCES MANUFACTURER(manufacturer_id) ON UPDATE CASCADE,
     FOREIGN KEY (registered_organization) REFERENCES ORGANIZATION(organization_id) ON UPDATE CASCADE
 );
+
 -- CTD_LOG: stores log data related to CTD operations.
 CREATE TABLE CTD_LOG 
 (
@@ -117,8 +129,8 @@ CREATE TABLE CTD_LOG
 -- Part B: Start
 -- ***************************
 -- Sample data for ADDRESSES
--- Summary:
-
+-- Summary: store data for the ADDRESSES relation will store data about the country/region, state/province, and street address
+--  for organizations, manufacturers, and GPS coordinates.
 --      INSERT data for ORGANIZATION ADDRESS
 INSERT INTO ADDRESSES VALUES ('United States', 'Washington, D.C', '1401 Constitution Avenue NW, Room 5128', 1001);
 INSERT INTO ADDRESSES VALUES ('United States', 'Massachusetts', '266 Woods Hole Road, Woods Hole', 1002);
@@ -144,7 +156,8 @@ INSERT INTO ADDRESSES VALUES ('China', 'Beijing', 'Fangshan District', 1019);
 INSERT INTO ADDRESSES VALUES ('Australia', 'Sydney', NULL, 1020);
 
 -- Sample data for ORGANIZATION
--- Summary:
+-- Summary: store data for the ORGANIZATION relation will store the contact information for organizations involved in oceanography research. 
+-- Along with a foreign key linking to the corresponding address.
 INSERT INTO ORGANIZATION VALUES (1001, 'www.noaa.gov', '301-713-1208', 'outreach@noaa.gov', 2001);
 INSERT INTO ORGANIZATION VALUES (1002, 'www.whoi.edu', '508-289-2252', 'information@whoi.edu', 2002);
 INSERT INTO ORGANIZATION VALUES (1003, 'scripps.ucsd.edu', '858-246-5511', 'scrippsnews@ucsd.edu', 2003);
@@ -157,7 +170,8 @@ INSERT INTO ORGANIZATION VALUES (1009, 'www.jamstec.go.jp/e/', '81-46-866-3811',
 INSERT INTO ORGANIZATION VALUES (1010, 'noc.ac.uk', '44-0-23-8059-6666', 'giving@noc.ac.uk', 2010);
 
 -- Sample data for MANUFACTURER
--- Summary: 
+-- Summary: store data for the MANUFACTURER relation will store the contact information for manufacturers involved in CTD manufacturing, 
+-- Along with a foreign key linking to the corresponding address.
 INSERT INTO MANUFACTURER VALUES (1011, 'ABC Manufacturing', '123-456-7890', 'abc@example.com', 3001);
 INSERT INTO MANUFACTURER VALUES (NULL, 'XYZ Corporation', '987-654-3210', 'xyz@example.com', 3002);
 INSERT INTO MANUFACTURER VALUES (1012, 'Ocean Tech', '555-123-4567', 'ocean@example.com', 3003);
@@ -170,7 +184,8 @@ INSERT INTO MANUFACTURER VALUES (1015, 'Oceanic Solutions', '666-777-8888', 'oce
 INSERT INTO MANUFACTURER VALUES (NULL, 'Maritime Innovations', '999-000-1111', 'maritime@example.com', 3010);
 
 -- Sample data for CTD_GPS
--- Summary: 
+-- Summary: store data for CTD_GPS relation will store information about different GPS coordinate locations of where the data pointer were collected.
+-- Along with a foreign key linking to the corresponding address. 
 INSERT INTO CTD_GPS VALUES (1016, 34.343, 132.422, 'Minami Ward', 4001);
 INSERT INTO CTD_GPS VALUES (1017, 59.9025, 10.7242, 'Kavringen naturreservat', 4002);
 INSERT INTO CTD_GPS VALUES (1018, 33.945, -118.4719, 'Santa Monica Bay', 4003);
@@ -183,7 +198,7 @@ INSERT INTO CTD_GPS VALUES (1020, -33.8626, 151.2357, 'Sydney Harbor', 4009);
 INSERT INTO CTD_GPS VALUES (1020, -33.8627, 151.2448, 'Sydney Harbor', 4010);
 
 -- Sample data for CTD_DATA
--- Summary: 
+-- Summary: store data for CTD_DATA relation will store the collected data points from a CTD (Conductivity, Temperature, and Depth) instrument.  
 INSERT INTO CTD_DATA VALUES (15.20, 85.40, 35.60, 90.20, 5.80, 1020.40, 150.20, 5001);
 INSERT INTO CTD_DATA VALUES (17.80, 80.20, 33.70, 92.50, 6.40, 1019.80, 160.70, 5002);
 INSERT INTO CTD_DATA VALUES (18.50, 75.60, 34.20, 91.80, 5.50, 1021.00, 155.30, 5003);
@@ -196,7 +211,7 @@ INSERT INTO CTD_DATA VALUES (18.20, 76.20, 35.80, 90.90, 5.40, 1020.80, 158.90, 
 INSERT INTO CTD_DATA VALUES (14.70, 87.50, 36.40, 89.50, 6.40, 1018.20, 143.90, 5010);
 
 -- Sample data for CTD_OPERATOR
--- Summary:
+-- Summary: store data for CTD_OPERATOR relation will store data about the operator's name, email, and a foreign key referencing their organization.
 INSERT INTO CTD_OPERATOR VALUES (2001, 'John', 'A.', 'Smith', 'john.smith@noaa.gov', 6001);
 INSERT INTO CTD_OPERATOR VALUES (2002, 'Emily', NULL, 'Johnson', 'emily.johnson@whoi.edu', 6002);
 INSERT INTO CTD_OPERATOR VALUES (2001, 'Michael', 'B.', 'Davis', 'michael.davis@noaa.gov', 6003);
@@ -209,7 +224,8 @@ INSERT INTO CTD_OPERATOR VALUES (2002, 'Alexander', 'E.', 'Lopez', 'alexander.lo
 INSERT INTO CTD_OPERATOR VALUES (2004, 'Mia', NULL, 'Garcia', 'mia.garcia@bodc.ac.u', 6010);
 
 -- Sample data for CTD_EQUIPMENT
--- Summary:
+-- Summary: store data for CTD_EQUIPMENT relation will store data about the CTD equipment's name, along with two foreign keys. 
+-- One will reference the manufacturer who made it, and the other will reference the organization it is registered with.
 INSERT INTO CTD_EQUIPMENT VALUES (3001, 2001, 'CTD Sensor 1', 7001);
 INSERT INTO CTD_EQUIPMENT VALUES (3002, 2002, 'CTD Sensor 2', 7002);
 INSERT INTO CTD_EQUIPMENT VALUES (3003, 2001, 'CTD Sensor 3', 7003);
@@ -222,8 +238,12 @@ INSERT INTO CTD_EQUIPMENT VALUES (3009, 2001, 'CTD Sensor 9', 7009);
 INSERT INTO CTD_EQUIPMENT VALUES (3010, 2004, 'CTD Sensor 10', 7010);
 
 -- Sample data for CTD_LOG
--- Summary:
-INSERT INTO CTD_LOG VALUES (4001, 7001, 6008, 5001, '2023-11-04 10:30:00+00', 8001);
+-- Summary: store data for CTD_LOG relation will store the timestamp log of when the data points were collected. 
+-- It will also have four foreign keys: 
+-- one linking to the organization where the data was collected, 
+-- one linking to the CTD operator who operated the CTD at that time, 
+-- one linking to the GPS coordinates of where the data was collected, 
+-- and one linking to the CTD equipment that was being used.
 INSERT INTO CTD_LOG VALUES (4002, 7002, 6002, 5002, '2023-11-04 11:15:00+00', 8002);
 INSERT INTO CTD_LOG VALUES (4003, 7004, 6007, 5003, '2023-11-04 12:45:00+00', 8003);
 INSERT INTO CTD_LOG VALUES (4004, 7005, 6002, 5004, '2023-11-04 13:20:00+00', 8004);
