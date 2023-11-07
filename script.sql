@@ -317,7 +317,7 @@ FROM (SELECT contact_email
      UNION
      SELECT contact_email
      FROM MANUFACTURER) 
-    AS CombinedEmails;
+     AS CombinedEmails;
 
 -- SQL QUERY 6 
 -- Purpose: To acknowledge scientists who go above and beyond collecting oceanographic data. 
