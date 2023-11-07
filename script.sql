@@ -272,7 +272,7 @@ JOIN ctd_log ON ctd_data.data_id = ctd_log.data_id
 JOIN ctd_gps ON ctd_log.gps_id = ctd_gps.gps_id 
 GROUP BY ctd_gps.latitude, ctd_gps.longitude; 
 
---  SQL QUERY 2 
+--  SQL Query 2 
 --  Purpose: Organize ctd data by the equipment used to gather it, in order to verify the source of ctd_data 
 --  Expected: A table that contains ctd data and the name of the equipment used to gather it. 
 SELECT CTD.Name, ctd_data.temperature, ctd_data.transmissivity, ctd_data.salinity, ctd_data.oxygen_saturation, ctd_data.florescence, ctd_data.density, ctd_data.pressure 
@@ -283,7 +283,7 @@ FROM (SELECT ctd_equipment.equipment_name AS Name, ctd_log.equipment_id, ctd_log
 WHERE ctd_data.data_id IN (CTD.data_id) 
 GROUP BY CTD.Name ASC; 
 
--- SQL QUERY 3 
+-- SQL Query 3 
 -- Purpose: Identify locations that have anomalous/outlier temperature readings in the ocean. 
 -- Expected: A table of locations where above average water temperature was recorded. Included in the result set is a name of the location and the temperature recorded. 
 SELECT ctd_gps.location_name, ctd_data.temperature 
@@ -319,7 +319,7 @@ FROM (SELECT contact_email
      FROM MANUFACTURER) 
      AS CombinedEmails;
 
--- SQL QUERY 6 
+-- SQL Query 6 
 -- Purpose: To acknowledge scientists who go above and beyond collecting oceanographic data. 
 -- Expected: A table that lists the names of all registered operators who have uploaded a ctd_log, ordered by number of ctd_logs they have uploaded. 
 SELECT ctd_operator.first_name, ctd_operator.middle_name, ctd_operator.last_name, operatorEntries.RecordsLogged 
@@ -332,14 +332,14 @@ JOIN (SELECT ctd_operator.operator_id, COUNT(ctd_log.log_id) AS RecordsLogged
 ON ctd_operator.operator_id = operatorEntries.operator_id   
 ORDER BY RecordsLogged DESC; 
 
--- SQL QUERY 7
+-- SQL Query 7
 -- Pupose: Retrieve details of CTD operations, including equipment, organization, and operator information. 
 -- Expected: A result set that combines data from CTD_LOG, CTD_EQUIPMENT, CTD_OPERATOR, and ORGANIZATION.  
 SELECT O.organization_id, O.contact_email, O.contact_number, O.website, COALESCE(CONCAT(OO.first_name, ' ', OO.last_name), 'No Operators') AS operators 
 FROM ORGANIZATION O 
 LEFT JOIN CTD_OPERATOR OO ON O.organization_id = OO.organization_id; 
 
--- SQL QUERY 8 
+-- SQL Query 8 
 -- Purpose: Retrieve the manufacturer data for all the equipment. 
 -- Expected: A table that consists of the equipment name, manufacturer name, manufacturer number, manufacturer email, and address. 
 SELECT E.equipment_name AS Equipment, 
@@ -351,7 +351,7 @@ FROM manufacturer M
 JOIN ctd_equipment E ON M.manufacturer_id = E.manufacturer_id 
 JOIN addresses A ON M.address_id = A.address_id; 
 
--- SQL QUERY 9
+-- SQL Query 9
 -- Purpose: Retrieve the contact information for all the equipment. 
 -- Expected: A table that combines the CTD equipment name with its organizations details and their address.  
 SELECT E.equipment_name AS Equipment, 
@@ -363,7 +363,7 @@ FROM organization O
 JOIN ctd_equipment E ON O.organization_id = E.registered_organization 
 JOIN addresses A ON O.address_id = A.address_id; 
 
--- SQL QUERY 10
+-- SQL Query 10
 -- Purpose: Retrieve a list of organizations and their associated operators. 
 -- Expected: A result set containing organizations and their operators. 
 SELECT L.date_and_time AS operation_date, 
