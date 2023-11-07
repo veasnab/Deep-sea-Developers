@@ -294,7 +294,7 @@ WHERE temperature > (SELECT AVG(ctd_data.temperature) FROM ctd_data);
 
 -- SQL Query 4 
 -- Purpose: is to show the equipment that have gather CTD data, it also display the equipment that have not gather data (NULL). 
--- Expected: A set that includes all the columns from both the "CTD_EQUIPMENT" and -- "CTD_LOG" tables. It will show the equipment being used in CTD operations along with  
+-- Expected: A set that includes all the columns from both the "CTD_EQUIPMENT" and "CTD_LOG" tables. It will show the equipment being used in CTD operations along with  
 -- the, along with any equipment that is not being used.   
 SELECT * 
 FROM CTD_EQUIPMENT 
