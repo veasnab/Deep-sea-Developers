@@ -346,8 +346,7 @@ SELECT E.equipment_name AS Equipment,
        M. manufacturer_name AS Manufacturer, 
        M.contact_number AS Manufacturer_Phone_Contact, 
        M.contact_email AS Manufacturer_Email_Contact, 
-       CONCAT(A.street_address, ', ', A.state_or_province, ', ', A.country_or_region) 
-       AS Manufacturer_Address 
+       CONCAT(A.street_address, ', ', A.state_or_province, ', ', A.country_or_region) AS Manufacturer_Address 
 FROM manufacturer M 
 JOIN ctd_equipment E ON M.manufacturer_id = E.manufacturer_id 
 JOIN addresses A ON M.address_id = A.address_id; 
