@@ -4,7 +4,6 @@ For our TCSS 445: Database and System Design project, our goal is to build a dat
 
 ### Group Project Links:
 - [Phase I - III Group Folder](https://drive.google.com/drive/folders/1SBl6mujUn6A0Z5QOIPxeZQBPaRKZ7Keb)
-- [Phase III: Status Report](https://docs.google.com/document/d/1keZIIOOME-O2vrffIpPQKUSgP7hbf9Te/edit)
 
 ### Members: 
 - Sunny Ali
