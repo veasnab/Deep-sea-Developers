@@ -32,13 +32,13 @@ purpose is to serve as a homepage for this frontend website.
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Operators</a>
+                        <a class="nav-link" href="operator.php">Operators</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Locations</a>
+                        <a class="nav-link" href="locations.php">Locations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Organizations</a>
+                        <a class="nav-link" href="organizations.php">Organizations</a>
                     </li>
 
                 </ul>
