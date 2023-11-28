@@ -21,7 +21,7 @@
 
 
 -- ***************************
--- Part A: Start
+-- Part C1: Start
 -- ***************************
 
 -- MANUFACTURER: store data about various manufacturers who are involved in the production of oceanography CTD instruments. 
@@ -106,12 +106,12 @@ CREATE TABLE MEASUREMENT
 );
 
 -- ***************************
--- Part A: End
+-- Part C1: End
 -- ***************************
 
 
 -- ***************************
--- Part B: Start
+-- Part C2: Start
 -- ***************************
 
 -- Sample data for MANUFACTURER
@@ -197,8 +197,6 @@ INSERT INTO EMPLOY VALUES ('2021-10-01', 'enquiries@bodc.ac.uk', 'mia.garcia@bod
 -- Sample data for MEASUREMENT
 -- Summary: store data for MEASUREMENT relation. It will store data related to oceanography, such as temperature, transmissivity, salinity, oxygen saturation, fluorescence, density, and pressure.
 -- It also includes information about the date and time, the GPS coordinates, the operator who collect the data, and the equipment used to collect the data.  
--- Sample data for MEASUREMENT table
--- Sample data for MEASUREMENT table
 INSERT INTO MEASUREMENT VALUES (15.20, 85.40, 35.60, 90.20, 5.80, 1020.40, 150.20, 34.343, 132.422, 'john.smith@noaa.gov', 1002, '2022-01-15 08:30:00');
 INSERT INTO MEASUREMENT VALUES (17.80, 80.20, 33.70, 92.50, 6.40, 1019.80, 160.70, 59.9025, 10.7242, 'michael.davis@noaa.gov', 1002, '2022-02-20 12:45:00');
 INSERT INTO MEASUREMENT VALUES (18.50, 75.60, 34.20, 91.80, 5.50, 1021.00, 155.30, 33.945, -118.4719, 'michael.davis@noaa.gov', 1003, '2022-03-10 14:15:00');
@@ -211,12 +209,12 @@ INSERT INTO MEASUREMENT VALUES (18.20, 76.20, 35.80, 90.90, 5.40, 1020.80, 158.9
 INSERT INTO MEASUREMENT VALUES (14.70, 87.50, 36.40, 89.50, 6.40, 1018.20, 143.90, -33.8627, 151.2448, 'emma.martinez@noaa.gov', 1010, '2022-10-10 15:45:00');
 
 -- ***************************
--- Part B: End
+-- Part C2: End
 -- ***************************
 
 
 -- ***************************
--- Part C: Start
+-- Part C3: Start
 -- ***************************
 
 -- SQL Query 1 
@@ -353,7 +351,7 @@ LEFT JOIN OPERATOR O ON EM.Operator = O.Email
 GROUP By O.Email;
 
 -- ***************************
--- Part C: End
+-- Part C3: End
 -- ***************************
 
 
