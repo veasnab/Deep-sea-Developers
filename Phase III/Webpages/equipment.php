@@ -12,7 +12,7 @@ purpose is to list data about all registered CTD operators.
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CTD Database: Operator</title>
+        <title>CTD Database: Equipment</title>
         <!-- add a reference to the external stylesheet -->
         <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
     </head>
@@ -32,13 +32,13 @@ purpose is to list data about all registered CTD operators.
                         </a>
                     </li>
                     <!-- set operators tab to active -->
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="operator.php">Operator</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="location.php">Location</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="equipment.php">Equipment</a>
                     </li>
                     <li class="nav-item">
@@ -50,10 +50,10 @@ purpose is to list data about all registered CTD operators.
         </nav>
         <!-- END -- Add HTML code for the top menu section (navigation bar) -->
         <div class="jumbotron">
-            <p class="lead">Select an operator<p>
+            <p class="lead">Select an equipment sku#<p>
             <hr class="my-4">
-            <form method="GET" action="operator.php">
-                <select name="op" onchange='this.form.submit()'>
+            <form method="GET" action="equipment.php">
+                <select name="eq" onchange='this.form.submit()'>
                     <option selected>Select a name</option>
                     <!-- START -- PHP code for taking user input -->
                     <?php
@@ -62,16 +62,16 @@ purpose is to list data about all registered CTD operators.
                     {
                         die( mysqli_connect_error() );
                     }
-                    // select all column from the OPERATOR relation
-                    $sql = "SELECT * FROM OPERATOR";
+                    // select the equipment and its sku from the EQUIPMENT relation
+                    $sql = "SELECT Ename, SKU FROM EQUIPMENT";
                     if ($result = mysqli_query($connection, $sql))
                     {
                         // loop through the data
                         while($row = mysqli_fetch_assoc($result))
                         {
-                            // Map the Primary key "email" to the selected option display in the dropdown: first name, middle inits last name.
-                            echo '<option value="' . $row['Email'] . '">';
-                            echo $row['Fname']. ', '. $row['Minit']. ' '. $row['Lname'];
+                            // Map the Primary key "SKU" to the selected option display in the dropdown.
+                            echo '<option value="' . $row['SKU'] . '">';
+                            echo  $row['SKU'];
                             echo "</option>";
                         }
                         // release the memory used by the result set
@@ -84,17 +84,21 @@ purpose is to list data about all registered CTD operators.
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "GET")
                 {
-                    if (isset($_GET['op']) )
+                    if (isset($_GET['eq']) )
                     {
                 ?>
                 <p>&nbsp;</p>
                 <table class="table table-hover">
                     <thead>
                         <tr class="table-success">
-                            <th scope="col">Operator Name</th>
-                            <th scope="col">Employer</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">Year of Employment</th>
+                            <th scope="col">Equipment Name</th>
+                            <th scope="col">Average Temperature</th>
+                            <th scope="col">Average Transmissivity</th>
+                            <th scope="col">Average Salinity</th>
+                            <th scope="col">Average Saturation</th>
+                            <th scope="col">Average Florescence</th>
+                            <th scope="col">Average Density</th>
+                            <th scope="col">Average Pressure</th>
                         </tr>
                     </thead>
                     <?php
@@ -102,22 +106,25 @@ purpose is to list data about all registered CTD operators.
                         {
                             die( mysqli_connect_error() );
                         }
-                        // This SQL query retrieves information about an operator and their employment details,
-                        // including the organization name, operator's full name, employment start date, and
-                        // the number of years they have been employed.
-                        // It JOIN three relation: ORGANIZATION, EMPLOY, AND OPERATOR.
-                        // Using the foreign key from the EMPLOY relation to their respect PRIMARY KEY in the ORGRANIZATION and OPERATOR relation.
-                        // The number of year an operator of employment is calculated by YEAR(CURDATE()) - YEAR(E.Edate).
-                        // The recieve data is base on the select operator name,
-                        // where the user have the option to select: WHERE OP.Email = '{$_GET['op']}'"
-                        $sql = "SELECT O.Oname AS 'Organization',
-                                CONCAT(OP.Fname, ' ', COALESCE(OP.Minit, ''), ' ', OP.Lname) AS 'Operator',
-                                E.Edate AS 'Date',
-                                YEAR(CURDATE()) - YEAR(E.Edate) AS 'Year'
-                                FROM EMPLOY E
-                                JOIN ORGANIZATION O ON O.Email = E.Organization
-                                JOIN OPERATOR OP ON E.Operator = OP.Email
-                                WHERE OP.Email = '{$_GET['op']}';";
+                        // This SQL query retrieves information about equipment and their associated measurement details.
+                        // It calculates the average values of various measurements for a specific equipment based on the equipment SKU.
+                        // The measurements include temperature, transmissivity, salinity, saturation, florescence, density, and pressure.
+                        // The query uses a LEFT JOIN between the EQUIPMENT and MEASUREMENT tables, linking them via the Utilize and SKU columns, respectively.
+                        // The COALESCE function is used to handle potential NULL values in the average calculations and replaces them with the string 'NULL'.
+                        // The result is grouped by the equipment SKU.
+                        // Users can specify the equipment SKU through the GET parameter {$_GET['op']}.
+                        $sql = "SELECT E.Ename,
+                                COALESCE(AVG(M.temperature), 'NULL') AS 'avgtemp',
+                                COALESCE(AVG(M.transmissivity), 'NULL') AS 'avgtran',
+                                COALESCE(AVG(M.salinity), 'NULL') AS 'avgsal',
+                                COALESCE(AVG(M.saturation), 'NULL') AS 'avgsat',
+                                COALESCE(AVG(M.florescence), 'NULL') AS 'avgflo',
+                                COALESCE(AVG(M.density), 'NULL') AS 'avgden',
+                                COALESCE(AVG(M.pressure), 'NULL') AS 'avgpre'
+                                FROM EQUIPMENT E
+                                LEFT JOIN MEASUREMENT M ON M.Utilize = E.SKU
+                                WHERE E.SKU = {$_GET['eq']}
+                                GROUP BY E.SKU;";
 
                         if ($result = mysqli_query($connection, $sql))
                         {
@@ -125,10 +132,14 @@ purpose is to list data about all registered CTD operators.
                             {
                     ?>
                     <tr>
-                        <td><?php echo $row['Operator'] ?></td>
-                        <td><?php echo $row['Organization'] ?></td>
-                        <td><?php echo $row['Date'] ?></td>
-                        <td><?php echo $row['Year'] ?></td>
+                        <td><?php echo $row['Ename'] ?></td>
+                        <td><?php echo $row['avgtemp'] ?></td>
+                        <td><?php echo $row['avgtran'] ?></td>
+                        <td><?php echo $row['avgsal'] ?></td>
+                        <td><?php echo $row['avgsat'] ?></td>
+                        <td><?php echo $row['avgflo'] ?></td>
+                        <td><?php echo $row['avgden'] ?></td>
+                        <td><?php echo $row['avgpre'] ?></td>
                     </tr>
                     <?php
                             }

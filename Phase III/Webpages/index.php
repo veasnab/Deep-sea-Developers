@@ -12,9 +12,31 @@ purpose is to serve as a homepage for this frontend website.
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CTD Database</title>
+        <title>CTD Database: Home</title>
         <!-- add a reference to the external stylesheet -->
         <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+        <link rel="icon" href="logo.png" type="image/x-icon">
+        <style>
+            .content-container {
+                max-width: 100%;
+                margin: 500px;
+                margin-top: 20px;
+                margin-bottom: 0px;
+            }
+            .team {
+                max-width: 100%;
+                background: #073642;
+                text-align: center;
+            }
+            .contact {
+                text-align: center;
+            }
+            img {
+                border-radius: 50%;
+                max-width: 150px;
+                margin-bottom: 10px;
+            }
+        </style>
     </head>
     <body>
         <!-- START -- Add HTML code for the top menu section (navigation bar) -->
@@ -32,13 +54,17 @@ purpose is to serve as a homepage for this frontend website.
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="operator.php">Operators</a>
+                        <a class="nav-link" href="operator.php">Operator</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="locations.php">Locations</a>
+                        <a class="nav-link" href="location.php">Location</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="organizations.php">Organizations</a>
+                        <a class="nav-link" href="equipment.php">Equipment</a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="organization.php">Organization</a>
                     </li>
 
                 </ul>
@@ -46,8 +72,37 @@ purpose is to serve as a homepage for this frontend website.
             </div>
         </nav>
         <!-- END -- Add HTML code for the top menu section (navigation bar) -->
-        <div class="jumbotron">
-            <p class="lead">We're going ocean!<p>
-            <hr class="my-4">
+        <div class="team">
+            <h1>Deep Sea Developers</h1>
+            <img src="logo.png" alt="logo">
+            <p> "A CTD Database. We're going ocean!" </p>
         </div>
+        <div class="content-container">
+            <div class = "overview">
+                <h2>Project Overview</h2>
+                <p>
+                    Welcome to our webpage, where the fascinating world of oceanography meets user interaction. Our platform offers an engaging and 
+                    accessible way for users to explore oceanographic data. Dive into the depths of our CTD (Conductivity, Temperature, and Depth) database, 
+                    unlocking valuable insights into the secrets of our oceans. Whether you're a researcher, student, or ocean enthusiast, our webpage serves 
+                    as a gateway to learning and exploring more about the ocean.
+                </p>
+            </div>
+            <div class = "description">
+                <h2>Project Description</h2>
+                <p>
+                    In our project, we harness the power of the Google Cloud Platform to deploy a user-friendly web interface coupled with a MySQL database. 
+                    This infrastructure is hosted on a Linux Virtual Machine (VM), ensuring the robustness and efficiency of our setup.
+                    The web interface, crafted using PHP, seamlessly interacts with the MySQL database, offering users an intuitive experience. 
+                    Explore the distinct tabs on our website—Operator, Location, Equipment, and Organization—each providing a unique way for users to engage with our CTD database.
+                </p>
+            </div>
+            <div class = "contact">
+                <hr>
+                <h2>Team Members' Contact Information</h2>
+                <p>Sunny Ali | Email: hassanli@uw.edu <br>
+                   Makai Martinez | Email: mlm1738@uw.edu<br>
+                   Miguel Ramos | Email: ramosmig@uw.edu<br>
+                   Veasna Bun | Email: veasnab@uw.edu</p>
+            </div>
+        </hr>
     </body>

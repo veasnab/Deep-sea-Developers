@@ -12,7 +12,7 @@ purpose is to list data about all registered CTD operators.
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CTD Database: Operator</title>
+        <title>CTD Database: Organization</title>
         <!-- add a reference to the external stylesheet -->
         <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
     </head>
@@ -32,7 +32,7 @@ purpose is to list data about all registered CTD operators.
                         </a>
                     </li>
                     <!-- set operators tab to active -->
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="operator.php">Operator</a>
                     </li>
                     <li class="nav-item">
@@ -41,7 +41,7 @@ purpose is to list data about all registered CTD operators.
                     <li class="nav-item">
                         <a class="nav-link" href="equipment.php">Equipment</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="organization.php">Organization</a>
                     </li>
                 </ul>
@@ -50,10 +50,10 @@ purpose is to list data about all registered CTD operators.
         </nav>
         <!-- END -- Add HTML code for the top menu section (navigation bar) -->
         <div class="jumbotron">
-            <p class="lead">Select an operator<p>
+            <p class="lead">Select a Organization<p>
             <hr class="my-4">
-            <form method="GET" action="operator.php">
-                <select name="op" onchange='this.form.submit()'>
+            <form method="GET" action="organization.php">
+                <select name="org" onchange='this.form.submit()'>
                     <option selected>Select a name</option>
                     <!-- START -- PHP code for taking user input -->
                     <?php
@@ -62,16 +62,16 @@ purpose is to list data about all registered CTD operators.
                     {
                         die( mysqli_connect_error() );
                     }
-                    // select all column from the OPERATOR relation
-                    $sql = "SELECT * FROM OPERATOR";
+                    // select name of the organization from the ORGANIZATION relation and group them so they one appear once.
+                    $sql = "SELECT Oname FROM ORGANIZATION GROUP by Oname";
                     if ($result = mysqli_query($connection, $sql))
                     {
                         // loop through the data
                         while($row = mysqli_fetch_assoc($result))
                         {
-                            // Map the Primary key "email" to the selected option display in the dropdown: first name, middle inits last name.
-                            echo '<option value="' . $row['Email'] . '">';
-                            echo $row['Fname']. ', '. $row['Minit']. ' '. $row['Lname'];
+                            // Map the "Oname" orgainzation name to the selected option display in the dropdown.
+                            echo '<option value="' . $row['Oname'] . '">';
+                            echo  $row['Oname'];
                             echo "</option>";
                         }
                         // release the memory used by the result set
@@ -84,17 +84,18 @@ purpose is to list data about all registered CTD operators.
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "GET")
                 {
-                    if (isset($_GET['op']) )
+                    if (isset($_GET['org']) )
                     {
                 ?>
                 <p>&nbsp;</p>
                 <table class="table table-hover">
                     <thead>
                         <tr class="table-success">
-                            <th scope="col">Operator Name</th>
-                            <th scope="col">Employer</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">Year of Employment</th>
+                            <th scope="col">Organization Name</th>
+                            <th scope="col">Website</th>
+                            <th scope="col">Contact Phone Number</th>
+                            <th scope="col">Contact Email</th>
+                            <th scope="col">Number of Employee</th>
                         </tr>
                     </thead>
                     <?php
@@ -102,34 +103,39 @@ purpose is to list data about all registered CTD operators.
                         {
                             die( mysqli_connect_error() );
                         }
-                        // This SQL query retrieves information about an operator and their employment details,
-                        // including the organization name, operator's full name, employment start date, and
-                        // the number of years they have been employed.
-                        // It JOIN three relation: ORGANIZATION, EMPLOY, AND OPERATOR.
-                        // Using the foreign key from the EMPLOY relation to their respect PRIMARY KEY in the ORGRANIZATION and OPERATOR relation.
-                        // The number of year an operator of employment is calculated by YEAR(CURDATE()) - YEAR(E.Edate).
-                        // The recieve data is base on the select operator name,
-                        // where the user have the option to select: WHERE OP.Email = '{$_GET['op']}'"
-                        $sql = "SELECT O.Oname AS 'Organization',
-                                CONCAT(OP.Fname, ' ', COALESCE(OP.Minit, ''), ' ', OP.Lname) AS 'Operator',
-                                E.Edate AS 'Date',
-                                YEAR(CURDATE()) - YEAR(E.Edate) AS 'Year'
-                                FROM EMPLOY E
-                                JOIN ORGANIZATION O ON O.Email = E.Organization
-                                JOIN OPERATOR OP ON E.Operator = OP.Email
-                                WHERE OP.Email = '{$_GET['op']}';";
+                            // This SQL query retrieves information about an organization and the number of operators employed by the organization.
+                            // It includes the organization name, website, phone, email, and the count of operators.
+                            // The query utilizes a LEFT JOIN between the ORGANIZATION and EMPLOY tables, linking them via the Email and Organization columns, respectively.
+                            // The COALESCE function is employed to handle potential NULL values in the organization's website, phone, and email, replacing them with the string 'NULL'.
+                            // The result is grouped by the organization's email.
+                            // Users can specify the organization name through the GET parameter {$_GET['org']}.
+                        $sql = "SELECT O.Oname, COALESCE(O.Website, 'NULL') AS Website, COALESCE(O.Phone, 'NULL') AS Phone,
+                                COALESCE(O.Email, 'NULL') AS Email, COUNT(E.Operator) AS 'Count'
+                                FROM ORGANIZATION O
+                                LEFT JOIN EMPLOY E ON O.Email = E.Organization
+                                WHERE O.Oname = '{$_GET['org']}'
+                                GROUP BY O.Email;";
 
                         if ($result = mysqli_query($connection, $sql))
                         {
                             while($row = mysqli_fetch_assoc($result))
                             {
                     ?>
-                    <tr>
-                        <td><?php echo $row['Operator'] ?></td>
-                        <td><?php echo $row['Organization'] ?></td>
-                        <td><?php echo $row['Date'] ?></td>
-                        <td><?php echo $row['Year'] ?></td>
-                    </tr>
+                        <tr>
+                            <td><?php echo $row['Oname'] ?></td>
+                            <td>
+                                <?php
+                                if ($row['Website'] !== 'NULL') {
+                                    echo '<a href="' . $row['Website'] . '" target="_blank">' . $row['Website'] . '</a>';
+                                } else {
+                                    echo 'NULL';
+                                    }
+                                ?>
+                            </td>
+                            <td><?php echo $row['Phone'] ?></td>
+                            <td><?php echo $row['Email'] ?></td>
+                            <td><?php echo $row['Count'] ?></td>
+                        </tr>
                     <?php
                             }
                             // release the memory used by the result set
