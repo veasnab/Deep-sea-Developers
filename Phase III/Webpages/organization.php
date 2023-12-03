@@ -15,6 +15,7 @@ purpose is to list data about all registered CTD operators.
         <title>CTD Database: Organization</title>
         <!-- add a reference to the external stylesheet -->
         <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+        <link rel="icon" href="logo.png" type="image/x-icon">
     </head>
     <body>
         <!-- START -- Add HTML code for the top menu section (navigation bar) -->
