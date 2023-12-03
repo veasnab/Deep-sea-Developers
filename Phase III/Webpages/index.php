@@ -81,28 +81,23 @@ purpose is to serve as a homepage for this frontend website.
             <div class = "overview">
                 <h2>Project Overview</h2>
                 <p>
-                    Welcome to our webpage, where the fascinating world of oceanography meets user interaction. Our platform offers an engaging and 
-                    accessible way for users to explore oceanographic data. Dive into the depths of our CTD (Conductivity, Temperature, and Depth) database, 
-                    unlocking valuable insights into the secrets of our oceans. Whether you're a researcher, student, or ocean enthusiast, our webpage serves 
-                    as a gateway to learning and exploring more about the ocean.
+                    
                 </p>
             </div>
             <div class = "description">
                 <h2>Project Description</h2>
                 <p>
-                    In our project, we harness the power of the Google Cloud Platform to deploy a user-friendly web interface coupled with a MySQL database. 
-                    This infrastructure is hosted on a Linux Virtual Machine (VM), ensuring the robustness and efficiency of our setup.
-                    The web interface, crafted using PHP, seamlessly interacts with the MySQL database, offering users an intuitive experience. 
-                    Explore the distinct tabs on our website—Operator, Location, Equipment, and Organization—each providing a unique way for users to engage with our CTD database.
+                    
                 </p>
             </div>
             <div class = "contact">
                 <hr>
                 <h2>Team Members' Contact Information</h2>
-                <p>Sunny Ali | Email: hassanli@uw.edu <br>
-                   Makai Martinez | Email: mlm1738@uw.edu<br>
-                   Miguel Ramos | Email: ramosmig@uw.edu<br>
-                   Veasna Bun | Email: veasnab@uw.edu</p>
+                <p>Sunny Ali | hassanli@uw.edu <br>
+                   Makai Martinez | mlm1738@uw.edu<br>
+                   Miguel Ramos | ramosmig@uw.edu<br>
+                   Veasna Bun | veasnab@uw.edu
+                </p>
             </div>
         </hr>
     </body>
