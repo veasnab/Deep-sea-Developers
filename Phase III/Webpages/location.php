@@ -16,6 +16,7 @@ purpose is to list all CTD data points taken at a chosen location.
         <title>CTD Database: Location</title>
         <!-- add a reference to the external stylesheet -->
         <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+        <link rel="icon" href="logo.png" type="image/x-icon">
     </head>
     <body>
         <!-- START -- Add HTML code for the top menu section (navigation bar) -->
@@ -52,7 +53,7 @@ purpose is to list all CTD data points taken at a chosen location.
         <div class="jumbotron">
             <p class="lead">Select a location<p>
             <hr class="my-4">
-            <form method="GET" action="locations.php">
+            <form method="GET" action="location.php">
                 <select name="loc" onchange='this.form.submit()'>
                     <option selected>location name</option>
                     <?php
