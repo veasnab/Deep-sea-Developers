@@ -55,6 +55,7 @@
         3. Once the xampp directory is located, find the "htdocs" folder and open up this folder (The following is the directory I am in: C:\xampp\htdocs).
         4. Locate the file that was downloaded from our GitHub with the folder name "Phase III".
         5. In the "Phase III" folder, locate and move the folder called "web" to the "htdocs" folder.
+           (The "web" folder should contain the following files: config.php, equipment.php, index.php, location.php, operator.php, organization.php, and logo.png)
 
     Part F: Project
 
