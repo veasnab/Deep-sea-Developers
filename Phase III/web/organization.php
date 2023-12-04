@@ -127,11 +127,12 @@ purpose is to list data about all registered CTD operators.
                             <td>
                                 <?php
                                 if ($row['Website'] !== 'NULL') {
-                                    echo '<a href="' . $row['Website'] . '" target="_blank">' . $row['Website'] . '</a>';
+                                    echo '<a href="' . 'http://' . $row['Website'] . '" target="_blank">' . $row['Website'] . '</a>';
                                 } else {
                                     echo 'NULL';
-                                    }
+                                }
                                 ?>
+                                
                             </td>
                             <td><?php echo $row['Phone'] ?></td>
                             <td><?php echo $row['Email'] ?></td>
