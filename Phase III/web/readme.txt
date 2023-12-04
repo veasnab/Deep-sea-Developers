@@ -33,7 +33,7 @@
         4. Create a new database where you want to import the queries.sql file. Click on "New" in the left sidebar, enter a database name, and click "Create".
         5. Select the newly created database from the left sidebar.
         6. Click on the "Import" tab at the top of the page.
-        7. Click on the "Choose File" button and locate your script.sql file on your computer.
+        7. Click on the "Choose File" button and locate your queries.sql file on your computer.
         8. Make sure the "SQL" format is selected.
         9. Click the "Import"/"Go" button to import the queries.sql file into the selected database.
 
