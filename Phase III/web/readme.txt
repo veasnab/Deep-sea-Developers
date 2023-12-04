@@ -17,7 +17,7 @@
         5. Choose the installation directory and complete the installation process (My chosen directory is the root of my C drive, i.e., "C:").
         6. After installation, you can start XAMPP and access the control panel to manage your web server and database.
 
-    Part B - Download the appropriate file from our GitHub: [https://github.com/veasnab/Deep-sea-Developers](https://github.com/veasnab/Deep-sea-Developers)
+    Part B - Download the appropriate file from our GitHub: [https://github.com/veasnab/Deep-sea-Developers]
 
         1. In the window, open up the terminal and navigate to the directory using the "cd" command you wish to download the repo from our GitHub.
            (Example: cd \Users\'username'\Downloads) This will take me to the download folder on my C: drive.
@@ -28,7 +28,7 @@
     Part C - Setting Up: MySQL Database (You will need the queries.sql file for this part. This is found in the "Phase III" folder that was downloaded.)
 
         1. Open XAMPP and start the Apache and MySQL services.
-        2. Open your web browser and navigate to [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
+        2. Open your web browser and navigate to [http://localhost/phpmyadmin].
         3. Log in to phpMyAdmin using your username and password (if needed).
         4. Create a new database where you want to import the queries.sql file. Click on "New" in the left sidebar, enter a database name, and click "Create".
         5. Select the newly created database from the left sidebar.
@@ -39,7 +39,7 @@
 
     Part D - Setting Up: User Account Database
 
-        1. On the web browser [http://localhost/phpmyadmin](http://localhost/phpmyadmin), on the top menu, click on the tab "User accounts".
+        1. On the web browser [http://localhost/phpmyadmin], on the top menu, click on the tab "User accounts".
         2. Locate and click on the hyperlink "Add user account".
         3. In the "Login Information" section fill in the following with:
            - User name: testuser
@@ -59,4 +59,4 @@
     Part F: Project
 
         1. Once parts A - E are completed, you should now be able to view our project locally on a web browser.
-        2. Open up a web browser and navigate to the user [http://localhost/web/](http://localhost/web/).
+        2. Open up a web browser and navigate to the user [http://localhost/web/].
