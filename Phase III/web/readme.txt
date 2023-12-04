@@ -10,7 +10,7 @@
 
     Part A - Installation: XAMPP
 
-        1. Go to the official XAMPP website: [https://www.apachefriends.org/index.html](https://www.apachefriends.org/index.html)
+        1. Go to the official XAMPP website: [https://www.apachefriends.org/index.html]
         2. Download the appropriate version for your operating system (Windows, macOS, or Linux).
         3. Once the download is complete, run the installer.
         4. Follow the installation wizard, selecting the components you want to install (e.g., Apache, MySQL, PHP, etc.).
