@@ -21,7 +21,7 @@
 
         1. In the window, open up the terminal and navigate to the directory using the "cd" command you wish to download the repo from our GitHub.
            (Example: cd \Users\'username'\Downloads) This will take me to the download folder on my C: drive.
-        2. Once you are in the desired directory, use the following command in the terminal: git clone https://github.com/veasnab/Deep-sea-Developers.git
+        2. Once you are in the desired directory, use the following command in the terminal: `git clone https://github.com/veasnab/Deep-sea-Developers.git`
            The downloaded files should now be in the chosen directory with the folder name "Deep-sea-Developers".
         3. Navigate through the "Deep-sea-Developers" and find the "Phase III". Everything in this folder will be needed later to run the project.
 
