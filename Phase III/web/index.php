@@ -1,6 +1,7 @@
 <!-- TCSS445 : Autumn 2023 -->
-<!-- @author: Miguel Ramos
+<!-- @author: Miguel Ramos, Veasna Bun
 @date 11-26-23
+@last revised date: 12-02-2023
 
 This webpage serves as the frontend for a database that compiles CTD data across organizations. It's
 purpose is to serve as a homepage for this frontend website.
@@ -19,7 +20,7 @@ purpose is to serve as a homepage for this frontend website.
         <style>
             .content-container {
                 max-width: 100%;
-                margin: 500px;
+                margin: 25%;
                 margin-top: 20px;
                 margin-bottom: 0px;
             }
@@ -35,6 +36,10 @@ purpose is to serve as a homepage for this frontend website.
                 border-radius: 50%;
                 max-width: 150px;
                 margin-bottom: 10px;
+            }
+            .content-container p {
+                margin: 20px;
+                margin-top: 0px;
             }
         </style>
     </head>
@@ -81,13 +86,20 @@ purpose is to serve as a homepage for this frontend website.
             <div class = "overview">
                 <h2>Project Overview</h2>
                 <p>
-                    
+                    Welcome to the Deep Sea Developer webpage! This project was created by students enrolled in the 
+                    TCSS445 Database and System class of Fall 2023 at the University of Washington Tacoma. We were motivated 
+                    by our passion for oceanography and the desire to contribute to the field. Our goal is to address the 
+                    challenges faced by oceanographers in accessing and managing Conductivity, Temperature, Depth (CTD) data. 
+                    With our knowledge of database implementation and theory, we aim to provide a scalable and user-friendly solution.
                 </p>
             </div>
             <div class = "description">
                 <h2>Project Description</h2>
                 <p>
-                    
+                    In this project, we deployed and hosted the webpage on the Google Cloud Platform using a Linux VM. 
+                    We also connected it to a CTD database written is MySQL. The web interface, crafted using PHP, interacts with the CTD database. 
+                    You can explore the different tabs on our website - Operator, Location, Equipment, and Organization. 
+                    Each tab provides a unique way for users to engage with our CTD database.
                 </p>
             </div>
             <div class = "contact">
