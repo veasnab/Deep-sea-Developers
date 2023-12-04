@@ -28,7 +28,7 @@
     Part C - Setting Up: MySQL Database (You will need the queries.sql file for this part. This is found in the "Phase III" folder that was downloaded.)
 
         1. Open XAMPP and start the Apache and MySQL services.
-        2. Open your web browser and navigate to [http://localhost/phpmyadmin].
+        2. Open your web browser and navigate to [http://localhost/phpmyadmin]
         3. Log in to phpMyAdmin using your username and password (if needed).
         4. Create a new database where you want to import the queries.sql file. Click on "New" in the left sidebar, enter a database name, and click "Create".
         5. Select the newly created database from the left sidebar.
