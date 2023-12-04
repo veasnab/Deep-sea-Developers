@@ -20,9 +20,6 @@ purpose is to serve as a homepage for this frontend website.
         <style>
             .content-container {
                 max-width: 100%;
-                margin: 25%;
-                margin-top: 20px;
-                margin-bottom: 0px;
             }
             .team {
                 max-width: 100%;
@@ -32,6 +29,15 @@ purpose is to serve as a homepage for this frontend website.
             .contact {
                 text-align: center;
             }
+            table {
+                display: flex;
+                justify-content: center
+            }
+            td {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+
             img {
                 border-radius: 50%;
                 max-width: 150px;
@@ -40,6 +46,10 @@ purpose is to serve as a homepage for this frontend website.
             .content-container p {
                 margin: 20px;
                 margin-top: 0px;
+            }
+            .overview, .description {
+                margin-left: 28%;
+                margin-right: 28%;
             }
         </style>
     </head>
@@ -84,7 +94,7 @@ purpose is to serve as a homepage for this frontend website.
         </div>
         <div class="content-container">
             <div class = "overview">
-                <h2>Project Overview</h2>
+                <h2>Overview</h2>
                 <p>
                     Welcome to the Deep Sea Developer webpage! This project was created by students enrolled in the 
                     TCSS445 Database and System class of Fall 2023 at the University of Washington Tacoma. We were motivated 
@@ -94,10 +104,10 @@ purpose is to serve as a homepage for this frontend website.
                 </p>
             </div>
             <div class = "description">
-                <h2>Project Description</h2>
+                <h2>Description</h2>
                 <p>
                     In this project, we deployed and hosted the webpage on the Google Cloud Platform using a Linux VM. 
-                    We also connected it to a CTD database written is MySQL. The web interface, crafted using PHP, interacts with the CTD database. 
+                    We also connected it to a CTD database written in MySQL. The web interface, crafted using PHP, interacts with the CTD database. 
                     You can explore the different tabs on our website - Operator, Location, Equipment, and Organization. 
                     Each tab provides a unique way for users to engage with our CTD database.
                 </p>
@@ -105,11 +115,24 @@ purpose is to serve as a homepage for this frontend website.
             <div class = "contact">
                 <hr>
                 <h2>Team Members' Contact Information</h2>
-                <p>Sunny Ali | hassanli@uw.edu <br>
-                   Makai Martinez | mlm1738@uw.edu<br>
-                   Miguel Ramos | ramosmig@uw.edu<br>
-                   Veasna Bun | veasnab@uw.edu
-                </p>
+                <table>
+                    <tr>
+                        <td>Sunny Ali</td>
+                        <td>hassanli@uw.edu</td>
+                    </tr>
+                    <tr>
+                        <td>Makai Martinez</td>
+                        <td>mlm1738@uw.edu</td>
+                    </tr>
+                    <tr>
+                        <td>Miguel Ramos</td>
+                        <td>ramosmig@uw.edu</td>
+                    </tr>
+                    <tr>
+                        <td>Veasna Bun</td>
+                        <td>veasnab@uw.edu</td>
+                    </tr>
+                </table>
             </div>
-        </hr>
+            </hr>
     </body>
