@@ -18,47 +18,39 @@ purpose is to serve as a homepage for this frontend website.
         <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
         <link rel="icon" href="logo.png" type="image/x-icon">
         <style>
-            .content-container {
-                max-width: 100%;
-            }
             .team {
                 max-width: 100%;
                 background: #073642;
                 text-align: center;
             }
-            .contact {
-                text-align: center;
-            }
-            table {
-                display: flex;
-                justify-content: center
-            }
-            td {
-                padding-right: 20px;
-                padding-left: 20px;
-            }
-
             img {
                 border-radius: 50%;
                 max-width: 150px;
                 margin-bottom: 10px;
             }
             .content-container p {
-                margin: 20px;
-                margin-top: 0px;
+                margin-left: 23%;
+                margin-right: 23%;
             }
-            .overview, .description {
-                margin-left: 28%;
-                margin-right: 28%;
+            h2 {
+                text-align: center;
+            }
+            table {
+                display: flex;
+                justify-content: center;
+            }
+            td {
+                padding-right: 10px;
+                padding-left: 10px;
             }
         </style>
     </head>
     <body>
         <!-- START -- Add HTML code for the top menu section (navigation bar) -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Deep Sea Developers</a>
+            <a class="navbar-brand">Deep Sea Developers</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-
-                    controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                    controls="navbarColor02" aria-expanded="true" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor02">
@@ -83,7 +75,7 @@ purpose is to serve as a homepage for this frontend website.
                     </li>
 
                 </ul>
-                <a class="navbar-brand">Miguel Veasna Makai Sunny</a>
+                <a class="navbar-brand">Miguel | Veasna | Makai | Sunny</a>
             </div>
         </nav>
         <!-- END -- Add HTML code for the top menu section (navigation bar) -->
@@ -113,7 +105,6 @@ purpose is to serve as a homepage for this frontend website.
                 </p>
             </div>
             <div class = "contact">
-                <hr>
                 <h2>Team Members' Contact Information</h2>
                 <table>
                     <tr>
@@ -134,5 +125,9 @@ purpose is to serve as a homepage for this frontend website.
                     </tr>
                 </table>
             </div>
-            </hr>
+            <!-- jQuery and Popper.js -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <!-- Bootstrap JS -->
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>

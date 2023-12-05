@@ -23,7 +23,7 @@ purpose is to list all CTD data points taken at a chosen location.
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Deep Sea Developers</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-
-                    controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                    controls="navbarColor02" aria-expanded="true" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor02">
@@ -143,7 +143,11 @@ purpose is to list all CTD data points taken at a chosen location.
                     ?>
                 </table>
             </form>
-
+        <!-- jQuery and Popper.js -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         </div>
     </body>
 </html>

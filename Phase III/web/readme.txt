@@ -33,7 +33,7 @@
         4. Create a new database where you want to import the queries.sql file. Click on "New" in the left sidebar, enter a database name, and click "Create".
         5. Select the newly created database from the left sidebar.
         6. Click on the "Import" tab at the top of the page.
-        7. Click on the "Choose File" button and locate your queries.sql file on your computer.
+        7. Click on the "Choose File" button and locate your script.sql file on your computer.
         8. Make sure the "SQL" format is selected.
         9. Click the "Import"/"Go" button to import the queries.sql file into the selected database.
 
@@ -55,7 +55,6 @@
         3. Once the xampp directory is located, find the "htdocs" folder and open up this folder (The following is the directory I am in: C:\xampp\htdocs).
         4. Locate the file that was downloaded from our GitHub with the folder name "Phase III".
         5. In the "Phase III" folder, locate and move the folder called "web" to the "htdocs" folder.
-           (The "web" folder should contain the following files: config.php, equipment.php, index.php, location.php, operator.php, organization.php, and logo.png)
 
     Part F: Project
 
