@@ -9,3 +9,4 @@ For our TCSS 445: Database and System Design project, our goal is to build a dat
 - Sunny Ali
 - Veasna Bun
 - Miguel Ramos (◕‿◕✿)
+- Makai Martinez
