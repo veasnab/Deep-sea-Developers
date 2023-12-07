@@ -101,7 +101,7 @@ purpose is to serve as a homepage for this frontend website.
                 <p>
                     In this project, we deployed and hosted the webpage on the Google Cloud Platform using a Linux VM. 
                     We also connected it to a CTD (MySQL) database. The web interface, crafted using PHP, interacts with the CTD database. 
-                    You can explore the different tabs on our website - Operator, Location, Equipment, and Organization. 
+                    You can explore the different tabs on our website - Operator, Location, Equipment, Organization, and Manufacturer. 
                     Each tab provides a unique way for users to engage with our CTD database.
                 </p>
             </div>
