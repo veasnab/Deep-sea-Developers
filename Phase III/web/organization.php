@@ -45,6 +45,9 @@ purpose is to list data about all registered CTD operators.
                     <li class="nav-item active">
                         <a class="nav-link" href="organization.php">Organization</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manufacturer.php">Manufacturer</a>
+                    </li>
                 </ul>
                 <a class="navbar-brand">Miguel Veasna Makai Sunny</a>
             </div>
@@ -104,12 +107,12 @@ purpose is to list data about all registered CTD operators.
                         {
                             die( mysqli_connect_error() );
                         }
-                            // This SQL query retrieves information about an organization and the number of operators employed by the organization.
-                            // It includes the organization name, website, phone, email, and the count of operators.
-                            // The query utilizes a LEFT JOIN between the ORGANIZATION and EMPLOY tables, linking them via the Email and Organization columns, respectively.
-                            // The COALESCE function is employed to handle potential NULL values in the organization's website, phone, and email, replacing them with the string 'NULL'.
-                            // The result is grouped by the organization's email.
-                            // Users can specify the organization name through the GET parameter {$_GET['org']}.
+                        // This SQL query retrieves information about an organization and the number of operators employed by the organization.
+                        // It includes the organization name, website, phone, email, and the count of operators.
+                        // The query utilizes a LEFT JOIN between the ORGANIZATION and EMPLOY tables, linking them via the Email and Organization columns, respectively.
+                        // The COALESCE function is employed to handle potential NULL values in the organization's website, phone, and email, replacing them with the string 'NULL'.
+                        // The result is grouped by the organization's email.
+                        // Users can specify the organization name through the GET parameter {$_GET['org']}.
                         $sql = "SELECT O.Oname, COALESCE(O.Website, 'NULL') AS Website, COALESCE(O.Phone, 'NULL') AS Phone,
                                 COALESCE(O.Email, 'NULL') AS Email, COUNT(E.Operator) AS 'Count'
                                 FROM ORGANIZATION O

@@ -45,6 +45,9 @@ purpose is to list all CTD data points taken at a chosen location.
                     <li class="nav-item">
                         <a class="nav-link" href="organization.php">Organization</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manufacturer.php">Manufacturer</a>
+                    </li>
                 </ul>
                 <a class="navbar-brand">Miguel Veasna Makai Sunny</a>
             </div>

@@ -45,6 +45,9 @@ purpose is to list data about all registered CTD operators.
                     <li class="nav-item">
                         <a class="nav-link" href="organization.php">Organization</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manufacturer.php">Manufacturer</a>
+                    </li>
                 </ul>
                 <a class="navbar-brand">Miguel Veasna Makai Sunny</a>
             </div>

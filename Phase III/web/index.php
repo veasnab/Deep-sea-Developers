@@ -69,13 +69,14 @@ purpose is to serve as a homepage for this frontend website.
                     <li class="nav-item">
                         <a class="nav-link" href="equipment.php">Equipment</a>
                     </li>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="organization.php">Organization</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="manufacturer.php">Manufacturer</a>
+                     </li>
                 </ul>
-                <a class="navbar-brand">Miguel | Veasna | Makai | Sunny</a>
+                <a class="navbar-brand">Miguel Veasna Makai Sunny</a>
             </div>
         </nav>
         <!-- END -- Add HTML code for the top menu section (navigation bar) -->
@@ -99,7 +100,7 @@ purpose is to serve as a homepage for this frontend website.
                 <h2>Description</h2>
                 <p>
                     In this project, we deployed and hosted the webpage on the Google Cloud Platform using a Linux VM. 
-                    We also connected it to a CTD database written in MySQL. The web interface, crafted using PHP, interacts with the CTD database. 
+                    We also connected it to a CTD (MySQL) database. The web interface, crafted using PHP, interacts with the CTD database. 
                     You can explore the different tabs on our website - Operator, Location, Equipment, and Organization. 
                     Each tab provides a unique way for users to engage with our CTD database.
                 </p>
@@ -130,4 +131,4 @@ purpose is to serve as a homepage for this frontend website.
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
             <!-- Bootstrap JS -->
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    </body>
+            </body>

@@ -1,10 +1,9 @@
 <!-- TCSS445 : Autumn 2023 -->
-<!-- @author: Miguel Ramos, Veasna Bun
-date: 11-22-23
-@last revised date: 12-02-2023
+<!-- @author: Makai Martinez
+12-6-2023
 
 This webpage serves as a piece of the frontend for a database that compiles CTD data across organizations. It's
-purpose is to list data about all registered CTD operators.
+purpose is to list data about all registered CTD Manufacturers.
 -->
 <?php require_once('config.php');?>
 <!DOCTYPE html>
@@ -12,7 +11,7 @@ purpose is to list data about all registered CTD operators.
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CTD Database: Operator</title>
+        <title>CTD Database: Manufacturer</title>
         <!-- add a reference to the external stylesheet -->
         <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
         <link rel="icon" href="logo.png" type="image/x-icon">
@@ -28,12 +27,10 @@ purpose is to list data about all registered CTD operators.
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
+                        <a class="nav-link" href="index.php">Home</a>
                     </li>
-                    <!-- set operators tab to active -->
-                    <li class="nav-item active">
+                    <!-- set Manufacturers tab to active -->
+                    <li class="nav-item">
                         <a class="nav-link" href="operator.php">Operator</a>
                     </li>
                     <li class="nav-item">
@@ -45,20 +42,24 @@ purpose is to list data about all registered CTD operators.
                     <li class="nav-item">
                         <a class="nav-link" href="organization.php">Organization</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="manufacturer.php">Manufacturer</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="manufacturer.php">Manufacturer
+                            <span class="sr-only">(current)</span>
+                        </a>
                     </li>
+
                 </ul>
                 <a class="navbar-brand">Miguel Veasna Makai Sunny</a>
             </div>
         </nav>
         <!-- END -- Add HTML code for the top menu section (navigation bar) -->
+        <!-- START -- code for listing info-->
         <div class="jumbotron">
-            <p class="lead">Select an operator<p>
+            <p class="lead">Select a manufacturer's Email<p>
             <hr class="my-4">
-            <form method="GET" action="operator.php">
-                <select name="op" onchange='this.form.submit()'>
-                    <option selected>Select a name</option>
+            <form method="GET" action="manufacturer.php">
+                <select name="mu" onchange='this.form.submit()'>
+                    <option selected>Select an Email</option>
                     <!-- START -- PHP code for taking user input -->
                     <?php
                     $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
@@ -66,16 +67,16 @@ purpose is to list data about all registered CTD operators.
                     {
                         die( mysqli_connect_error() );
                     }
-                    // select all column from the OPERATOR relation
-                    $sql = "SELECT * FROM OPERATOR";
+                    // select the manufacturer Email from the MANUFACTURER relation
+                    $sql = "SELECT Email FROM MANUFACTURER";
                     if ($result = mysqli_query($connection, $sql))
                     {
                         // loop through the data
                         while($row = mysqli_fetch_assoc($result))
                         {
-                            // Map the Primary key "email" to the selected option display in the dropdown: first name, middle inits last name.
+                            // Map the Primary key "email" to the selected option display in the dropdown.
                             echo '<option value="' . $row['Email'] . '">';
-                            echo $row['Fname']. ', '. $row['Minit']. ' '. $row['Lname'];
+                            echo  $row['Email'];
                             echo "</option>";
                         }
                         // release the memory used by the result set
@@ -88,17 +89,17 @@ purpose is to list data about all registered CTD operators.
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "GET")
                 {
-                    if (isset($_GET['op']) )
+                    if (isset($_GET['mu']) )
                     {
                 ?>
                 <p>&nbsp;</p>
                 <table class="table table-hover">
                     <thead>
                         <tr class="table-success">
-                            <th scope="col">Operator Name</th>
-                            <th scope="col">Employer</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">Year of Employment</th>
+                            <th scope="col">Manufacturer Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Active CTD's</th>
                         </tr>
                     </thead>
                     <?php
@@ -106,22 +107,16 @@ purpose is to list data about all registered CTD operators.
                         {
                             die( mysqli_connect_error() );
                         }
-                        // This SQL query retrieves information about an operator and their employment details,
-                        // including the organization name, operator's full name, employment start date, and
-                        // the number of years they have been employed.
-                        // It JOIN three relation: ORGANIZATION, EMPLOY, AND OPERATOR.
-                        // Using the foreign key from the EMPLOY relation to their respect PRIMARY KEY in the ORGRANIZATION and OPERATOR relation.
-                        // The number of year an operator of employment is calculated by YEAR(CURDATE()) - YEAR(E.Edate).
-                        // The recieve data is base on the select operator name,
-                        // where the user have the option to select: WHERE OP.Email = '{$_GET['op']}'"
-                        $sql = "SELECT O.Oname AS 'Organization',
-                                CONCAT(OP.Fname, ' ', COALESCE(OP.Minit, ''), ' ', OP.Lname) AS 'Operator',
-                                E.Edate AS 'Date',
-                                YEAR(CURDATE()) - YEAR(E.Edate) AS 'Year'
-                                FROM EMPLOY E
-                                JOIN ORGANIZATION O ON O.Email = E.Organization
-                                JOIN OPERATOR OP ON E.Operator = OP.Email
-                                WHERE OP.Email = '{$_GET['op']}';";
+                        // This SQL query retrieves details about manufacturer and their number of active CTDs.
+                        // It calculates the count of SKU's linked to a manufacturer based on the manufacturer Email.
+                        // The details of the manufacturer include name, phone, and email.
+                        // The query uses a LEFT JOIN between the MANUFACTURER and EQUIPMENT tables, linking them via the 'Email' and 'produce' columns, respectively.
+                        // The result is grouped by the manufacturer Email. Used a left join because some manufacturers dont have active equipment.
+                        // Users can specify the manufacturer Email through the GET parameter {$_GET['mu']}.
+                        $sql = "SELECT Mname, Email, COALESCE(Phone, 'NULL')  AS 'phonenum', COUNT(SKU) AS ActiveCTD
+                                FROM MANUFACTURER Left JOIN EQUIPMENT ON MANUFACTURER.Email = EQUIPMENT.Produce
+                                WHERE Email = '{$_GET['mu']}'
+                                GROUP BY Email";
 
                         if ($result = mysqli_query($connection, $sql))
                         {
@@ -129,10 +124,10 @@ purpose is to list data about all registered CTD operators.
                             {
                     ?>
                     <tr>
-                        <td><?php echo $row['Operator'] ?></td>
-                        <td><?php echo $row['Organization'] ?></td>
-                        <td><?php echo $row['Date'] ?></td>
-                        <td><?php echo $row['Year'] ?></td>
+                        <td><?php echo $row['Mname'] ?></td>
+                        <td><?php echo $row['Email'] ?></td>
+                        <td><?php echo $row['phonenum'] ?></td>
+                        <td><?php echo $row['ActiveCTD'] ?></td>
                     </tr>
                     <?php
                             }
